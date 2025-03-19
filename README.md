@@ -1,95 +1,49 @@
 # 🚀 **exp-seq-auth-api**
----
 
-## 🌟 **Funcionalidades Principales**
+## 🌟 **Project Description**
 
-- **Autenticación de usuarios** con control de acceso.
-- Gestión de **Productos**:
-  - Creación, lectura, actualización y eliminación.
-  - Filtro y paginación avanzados.
-- Gestión de **Comentarios**:
-  - Valora productos con un sistema de puntuación.
-  - Total control sobre los comentarios realizados.
-- Consultas personalizables con parámetros como `search`, `include`, `limit` y más.
+This project is an **API** developed using **Node.js 16**, **Express** and **Sequelize**. The API enables the management of**Productos** and **Comentarios**, along with a user authentication system. Additionally, it includes filtering and pagination functionalities for more efficient queries.
 
----
+## ⚙️ **Installation**
 
-## ⚙️ **Requerimientos Funcionales**
+Follow these steps to install and run the project:
 
-1. Sistema de autenticación para proteger recursos sensibles.
-2. CRUD para **Productos** y **Comentarios**.
-3. Filtro y paginación en todas las consultas.
-4. Asociaciones entre modelos:
-   - Un usuario puede gestionar varios productos y comentarios.
-   - Los comentarios están vinculados a productos y usuarios.
+Clone this repository to your local machine.
+   ```bash
+   git clone <https://github.com/Ramen11001/exp-seq-auth-api.git>
+cd <desired-folder-name>
 
----
+## 🛠️ **Functional Requirements**
 
-## 📋 **Estructura del API**
+The project must fulfill the following requirements:
 
-### **Autenticación**
-- `POST /auth/login` - Autenticar usuario y obtener un token de acceso.  
+### **User Authentication**
+- Users should be able to log in and obtain an access token.
 
-### **Productos**
-- `GET /models/products` - Listar productos con soporte para filtros y paginación.  
-- `GET /models/products/:id` - Obtener un producto por su ID.  
-- `POST /models/products` - Crear un producto (autenticación requerida).  
-- `PUT /models/products/:id` - Actualizar un producto existente (autenticación requerida).  
-- `DELETE /models/products/:id` - Eliminar un producto (autenticación requerida).  
+### **Product Management**
+- Create, read, update, and delete products..
+- Associate products with the user who created them.
 
-### **Comentarios**
-- `GET /models/comments` - Listar comentarios con soporte para filtros y paginación.  
-- `GET /models/comments/:id` - Obtener un comentario por su ID.  
-- `POST /models/comments` - Crear un nuevo comentario (autenticación requerida).  
-- `PUT /models/comments/:id` - Actualizar un comentario existente (autenticación requerida).  
-- `DELETE /models/comments/:id` - Eliminar un comentario (autenticación requerida).  
+### **Comment Management**
+- Create, read, update, and delete comments.
+- Associate comments with a product and a user.
 
----
 
-## 🛠️ **Modelos y Validaciones**
+## 📋 **API Structure**
 
-### **User**
-- Campos:
-  - `username` (único, obligatorio).  
-  - `password` (obligatorio).  
-- Relaciones:
-  - Puede crear varios productos y comentarios.
-  
-### **Product**
-- Campos:
-  - `name` (obligatorio).  
-  - `description`.  
-  - `price` (número fraccionario, obligatorio).  
-- Relaciones:
-  - Asociado a un **User**.
-  - Puede recibir varios **Comments**.
+### **Authentication**
+- `POST /auth/login` - Authenticate a user and obtain an access token..  
 
-### **Comment**
-- Campos:
-  - `rating` (entero, entre 1 y 5).  
-  - `text` (obligatorio).  
-- Relaciones:
-  - Asociado a un **Product** y un **User**.
+### **Products**
+`GET /models/products` - List products with support for filters and pagination.
+`GET /models/products/:id` - Retrieve a product by its ID.
+`POST /models/products` - Create a product (authentication required).
+`PUT /models/products/:id` - Update an existing product (authentication required).
+`DELETE /models/products/:id` - Delete a product (authentication required).
 
----
-
-## 🔎 **Filtros y Paginación**
-
-Las consultas `GET /models/products` y `GET /models/comments` soportan los siguientes parámetros:
-
-- **`search`**: Realiza búsquedas en campos relevantes (por ejemplo, `name` o `description`).  
-- **`include`**: Define las relaciones a incluir en la respuesta (por ejemplo, `comments` para productos).  
-- **`limit`**: Controla el número máximo de resultados por página.  
-- **`offset`**: Define
-
----
-
-## 🛠️ **Cómo Usar Este Proyecto**
-
-Sigue estos pasos para poner en marcha esta **API** y aprovechar al máximo sus funcionalidades.
-
-### **1. Clonar el Repositorio**
-Primero, clona este repositorio en tu máquina local:
-```bash
-git clone <URL_DEL_REPOSITORIO>
-cd <NOMBRE_DEL_REPOSITORIO>
+### **Comments**
+- `GET /models/comments` - List comments with support for filters and pagination.  
+- `GET /models/comments/:id` - Retrieve a comment by its ID.  
+- `POST /models/comments` - Create a new comment (authentication required).
+- `PUT /models/comments/:id` - Update an existing comment (authentication required). 
+- `DELETE /models/comments/:id` - Delete a comment (authentication required).  
