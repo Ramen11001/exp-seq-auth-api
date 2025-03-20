@@ -8,8 +8,8 @@
       "dialect": "postgres"
     },
     "production": {
-      "host": "direccion_servidor_produccion",
-      "port": 5432,
+      "host": "process.env.DB_HOST",
+      "port": "process.env.DB_PORT",
       "database": "prodify",
       "username": "usuario_produccion",
       "password": "password_produccion",
