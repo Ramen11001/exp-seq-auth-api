@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www"
+    "start": "node ./src/bin/www",
+    "sequelize": "sequelize",
+    "db:create": "yarn run sequelize db:create",
+    "seed:generate": "yarn run sequelize seed:generate --name demo-user"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
