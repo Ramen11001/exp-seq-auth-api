@@ -6,6 +6,7 @@
     "start": "node ./src/bin/www",
     "sequelize": "sequelize",
     "db:create": "yarn run sequelize db:create",
+    "db:migrate": "yarn run sequelize db:migrate",
     "seed:generate": "yarn run sequelize seed:generate --name demo-user"
   },
   "dependencies": {
