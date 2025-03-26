@@ -7,7 +7,7 @@
     "sequelize": "sequelize",
     "db:create": "yarn run sequelize db:create",
     "db:migrate": "yarn run sequelize db:migrate",
-    "seed:generate": "yarn run sequelize seed:generate --name demo-user"
+    "seed:generate": "yarn run sequelize seed:generate"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
