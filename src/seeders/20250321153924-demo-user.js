@@ -1,60 +1,55 @@
 'use strict';
-
+const md5 = require('md5')
+//Importas la librería md5 despúes de install con yarn add md5 en terminal. SOLO DEBES PONER md5("y la contra")
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('User', [
       {
         username: "Grace",
-        password: "idk",
+        password: md5("idk90olm"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-
       {
-        username:"Victior",
-        password:"abc3",
+        username: "Víctor",
+        password: md5("advf4t5ggf"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         username: "Rafael",
-        password: "34r",
+        password: md5("id4533rdfk"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         username: 'José',
-        password: "h76",
+        password: md5("h76yujfg"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         username: "Nestor",
-        password: "npld3",
+        password: md5("ixcddfvvfk645"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         username: "Eddy",
-        password: "olp",
+        password:md5("ittrr67887tdk"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         username: "Almarales",
-        password: "8uj",
+        password: md5("idrt6d6t6fdfdk"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-
-
     ]);
   },
-
   async down(queryInterface, Sequelize) {
     return queryInterface.bulkDelete('User', null, {});
-
   },
-
 };
