@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www"
+    "start": "node ./src/bin/www",
+    "sequelize": "sequelize",
+    "db:create": "yarn run sequelize db:create",
+    "db:migrate": "yarn run sequelize db:migrate",
+    "seed:generate": "yarn run sequelize seed:generate",
+    "seed:run": "yarn run sequelize db:seed:all"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,6 +17,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "md5": "^2.3.0",
     "morgan": "~1.9.1",
     "pg": "^8.14.1",
     "pg-hstore": "^2.3.4",
