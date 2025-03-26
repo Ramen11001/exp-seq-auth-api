@@ -1,6 +1,6 @@
 'use strict';
 const md5 = require('md5')
-//Importas la librería md5 despúes de install con yarn add md5 en terminal. SOLO DEBES PONER md5("y la contra")
+//Import the md5 library, and only put md5("the password"),
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
