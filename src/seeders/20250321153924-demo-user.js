@@ -6,42 +6,49 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('User', [
       {
-        username: "Grace",
-        password: md5("idk90olm"),
+        userId:"1",
+        name: "Grace",
+        password: md5("id33r875frgffk"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        userId:"2",
         username: "Víctor",
         password: md5("advf4t5ggf"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        userId:"3",
         username: "Rafael",
         password: md5("id4533rdfk"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        userId:"4",
         username: 'José',
         password: md5("h76yujfg"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        userId:"5",
         username: "Nestor",
         password: md5("ixcddfvvfk645"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        userId:"6",
         username: "Eddy",
         password:md5("ittrr67887tdk"),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        userId:"7",
         username: "Almarales",
         password: md5("idrt6d6t6fdfdk"),
         createdAt: new Date(),
