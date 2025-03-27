@@ -1,8 +1,11 @@
 'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    const users = await queryInterface.sequelize.query('SELECT * FROM users', {
+      model: Users, //Return an array, I gotta get the id
+      mapToModel: true,  
+    });
     return queryInterface.bulkInsert('Products', [
       {
         name: "Skirt",
@@ -10,6 +13,8 @@ module.exports = {
         price: 19.99,
         createdAt: new Date(),
         updatedAt: new Date(),
+        //This is for ID.
+        userId: users.find((e)=> e.username == 'Grace').id
       },
       {
         name: "T-Shirt",
@@ -17,6 +22,7 @@ module.exports = {
         price: 12.50,
         createdAt: new Date(),
         updatedAt: new Date(),
+        userId: users.find((e)=> e.username == 'Victor').id
       },
       {
         name: "Sneakers",
@@ -24,6 +30,7 @@ module.exports = {
         price: 49.99,
         createdAt: new Date(),
         updatedAt: new Date(),
+        userId: users.find((e)=> e.username == 'Eddy').id
       },
       {
         name: "Backpack",
@@ -31,6 +38,7 @@ module.exports = {
         price: 29.99,
         createdAt: new Date(),
         updatedAt: new Date(),
+        userId: users.find((e)=> e.username == 'Nestor').id
       },
       {
         name: "Smartwatch",
@@ -38,6 +46,7 @@ module.exports = {
         price: 89.99,
         createdAt: new Date(),
         updatedAt: new Date(),
+        userId: users.find((e)=> e.username == 'Almarales').id
       },
       {
         name: "Bluetooth Headphones",
@@ -45,6 +54,7 @@ module.exports = {
         price: 59.99,
         createdAt: new Date(),
         updatedAt: new Date(),
+        userId: users.find((e)=> e.username == 'José').id
       },
       {
         name: "Spiderman Notebook",
@@ -52,16 +62,12 @@ module.exports = {
         price: 8.99,
         createdAt: new Date(),
         updatedAt: new Date(),
+        userId: users.find((e)=> e.username == 'Rafael').id
       }
     ]);
   },
-
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  async down(queryInterface, Sequelize) {
+    //This is for delete the Products Table
+    return queryInterface.bulkDelete('Products', null, {});
   }
 };
