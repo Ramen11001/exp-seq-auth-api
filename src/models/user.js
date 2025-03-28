@@ -4,13 +4,13 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.associate = (models) => {
+        User.hasMany(models.Product, { //I used hasMany because a user can have several products 
+          foreignKey: 'userId', //IT IS MADE IN MIGRATION
+          onDelete: 'CASCADE', // Delete products when deleting the user
+        });
+      };
     }
   }
   User.init({
