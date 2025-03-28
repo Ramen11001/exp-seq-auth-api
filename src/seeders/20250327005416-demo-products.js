@@ -2,7 +2,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const user = await queryInterface.sequelize.query('SELECT * FROM user'); //Change 
+    async function getUserByUsername(){
+      const idUser=await User.findAll({
+        attributes: ['id'], 
+      });
+      return idUser
+    }
     return queryInterface.bulkInsert('Products', [
       {
         name: "Skirt",
@@ -11,7 +16,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         //This is for ID.
-        userId: user.find((e)=> e.username == 'Grace').id
+        userId: ,
       },
       {
         name: "T-Shirt",
@@ -19,7 +24,7 @@ module.exports = {
         price: 12.50,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == 'Victor').id
+        userId: user.find((e)=> e.username == getUser('Victor')).id
       },
       {
         name: "Sneakers",
@@ -27,7 +32,7 @@ module.exports = {
         price: 49.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == 'Eddy').id
+        userId: user.find((e)=> e.username == getUser('Eddy')).id
       },
       {
         name: "Backpack",
@@ -35,7 +40,7 @@ module.exports = {
         price: 29.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == 'Nestor').id
+        userId: user.find((e)=> e.username == getUser('Nestor')).id
       },
       {
         name: "Smartwatch",
@@ -43,7 +48,7 @@ module.exports = {
         price: 89.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == 'Almarales').id
+        userId: user.find((e)=> e.username == getUser('Almarales')).id
       },
       {
         name: "Bluetooth Headphones",
@@ -51,7 +56,7 @@ module.exports = {
         price: 59.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == 'José').id
+        userId: user.find((e)=> e.username == getUser('José')).id
       },
       {
         name: "Spiderman Notebook",
@@ -59,7 +64,7 @@ module.exports = {
         price: 8.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == 'Rafael').id
+        userId: user.find((e)=> e.username == getUser('Rafael')).id
       }
     ]);
   },
