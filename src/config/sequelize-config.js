@@ -6,7 +6,8 @@ module.exports = {
       "database": "prodify",
       "username": "postgres",
       "password": "postgres",
-      "dialect": "postgres"
+      "dialect": "postgres",
+     "seederStorage": "sequelize"
     },
     "production": {
       "host": process.env.DB_HOST,
@@ -14,7 +15,8 @@ module.exports = {
       "database":process.env.DB_DATABASE,
       "username": process.env.DB_USERNAME,
       "password": process.env.DB_PASSWORD,
-      "dialect": "postgres"
+      "dialect": "postgres",
+       "seederStorage": "sequelize"
     }
   }
   

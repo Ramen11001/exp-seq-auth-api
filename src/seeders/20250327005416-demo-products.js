@@ -1,4 +1,5 @@
 'use strict';
+const { User } = require('./src/models');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -34,7 +35,7 @@ module.exports = {
         price: 49.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId:userIds[0].id
+        userId:userIds[2].id
       },
       {
         name: "Backpack",
@@ -42,7 +43,7 @@ module.exports = {
         price: 29.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: userIds[2].id
+        userId: userIds[3].id
       },
       {
         name: "Smartwatch",
@@ -50,7 +51,7 @@ module.exports = {
         price: 89.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: userIds[5].id
+        userId: userIds[4].id
       },
       {
         name: "Bluetooth Headphones",
@@ -58,7 +59,7 @@ module.exports = {
         price: 59.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: userIds[3].id
+        userId: userIds[5].id
       },
       {
         name: "Spiderman Notebook",
@@ -66,7 +67,7 @@ module.exports = {
         price: 8.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: userIds[4].id
+        userId: userIds[6].id
       }
     ]);
   },
