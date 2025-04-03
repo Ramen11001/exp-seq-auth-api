@@ -7,9 +7,8 @@
     "sequelize": "sequelize",
     "db:create": "yarn run sequelize db:create",
     "db:migrate": "yarn run sequelize db:migrate",
-    "db:delete":"yarn sequelize db:drop",
-    "seed:generate": "yarn sequelize seed:generate",
-    "seed:run": "yarn run sequelize db:seed:all"
+    "seed:run": "yarn run sequelize db:seed:all",
+    "db:delete": "yarn sequelize db:drop"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

@@ -4,7 +4,7 @@ const md5 = require('md5')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('User', [
+    return queryInterface.bulkInsert('Users', [
       {
         username: "Grace",
         password: md5("id33r875frgffk"),
@@ -51,6 +51,6 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     //This is for delete the table
-    return queryInterface.bulkDelete('User', null, {});
+    return queryInterface.bulkDelete('Users', null, {});
   },
 };

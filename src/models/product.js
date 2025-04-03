@@ -10,25 +10,25 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Product.associate = (models) => {
+      
         Product.belongsTo(models.User, { //Because one product can only have one user.
           foreignKey: 'userId',//IT IS MADE IN MIGRATION
           onDelete: 'CASCADE', // Relationship with the user, allows cascading deletion
         });
-      };
+      
     }
   }
   Product.init({
     name: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     description: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
-      type: Sequelize.DOUBLE,
+      type: DataTypes.DOUBLE,
       allowNull: true,
     },
   },
