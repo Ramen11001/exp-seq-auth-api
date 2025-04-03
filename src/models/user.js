@@ -5,8 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-    
         User.hasMany(models.Product, { //I used hasMany because a user can have several products 
+          foreignKey: 'userId', //IT IS MADE IN MIGRATION
+          onDelete: 'CASCADE', // Delete products when deleting the user
+        });
+        User.hasMany(models.Comment, { //I used hasMany because a user make many comments 
           foreignKey: 'userId', //IT IS MADE IN MIGRATION
           onDelete: 'CASCADE', // Delete products when deleting the user
         });
