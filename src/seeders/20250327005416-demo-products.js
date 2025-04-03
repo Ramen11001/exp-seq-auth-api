@@ -2,12 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    async function getUserByUsername(){
+    async function getUserId(){
       const idUser=await User.findAll({
         attributes: ['id'], 
       });
-      return idUser
+      
+      return  idUser
     }
+    const userIds = await getUserId();
     return queryInterface.bulkInsert('Products', [
       {
         name: "Skirt",
@@ -16,7 +18,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         //This is for ID.
-        userId: ,
+        userId: userIds[0].id,
       },
       {
         name: "T-Shirt",
@@ -24,7 +26,7 @@ module.exports = {
         price: 12.50,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == getUser('Victor')).id
+        userId: userIds[1].id
       },
       {
         name: "Sneakers",
@@ -32,7 +34,7 @@ module.exports = {
         price: 49.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == getUser('Eddy')).id
+        userId:userIds[0].id
       },
       {
         name: "Backpack",
@@ -40,7 +42,7 @@ module.exports = {
         price: 29.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == getUser('Nestor')).id
+        userId: userIds[2].id
       },
       {
         name: "Smartwatch",
@@ -48,7 +50,7 @@ module.exports = {
         price: 89.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == getUser('Almarales')).id
+        userId: userIds[5].id
       },
       {
         name: "Bluetooth Headphones",
@@ -56,7 +58,7 @@ module.exports = {
         price: 59.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == getUser('José')).id
+        userId: userIds[3].id
       },
       {
         name: "Spiderman Notebook",
@@ -64,7 +66,7 @@ module.exports = {
         price: 8.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId: user.find((e)=> e.username == getUser('Rafael')).id
+        userId: userIds[4].id
       }
     ]);
   },
