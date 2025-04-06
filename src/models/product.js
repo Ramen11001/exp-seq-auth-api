@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId',//IT IS MADE IN MIGRATION
           onDelete: 'CASCADE', // Relationship with the user, allows cascading deletion
         });
-      
+
+       Product.hasMany(models.Comment, { //I used hasMany because a product can have several comments
+          foreignKey: 'productsId', //IT IS MADE IN MIGRATION
+          onDelete: 'CASCADE', // Delete products when deleting the user
+        });
     }
   }
   Product.init({

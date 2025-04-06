@@ -3,12 +3,12 @@ const { User } = require('../models');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    async function getUserId(){
-      const idUser=await User.findAll({
-        attributes: ['id'], 
+    //For User
+    async function getUserId() {
+      const idUser = await User.findAll({
+        attributes: ['id'],
       });
-      
-      return  idUser
+      return idUser
     }
     const userIds = await getUserId();
     return queryInterface.bulkInsert('Products', [
@@ -35,7 +35,7 @@ module.exports = {
         price: 49.99,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId:userIds[2].id
+        userId: userIds[2].id
       },
       {
         name: "Backpack",
