@@ -2,28 +2,28 @@ const express = require("express");
 const router = express.Router();
 const productServise = require("../services/products.service");
 
-router.get("/models/products", async (req, res) => {
+router.get("/routes/products", validateProductData, async (req, res) => {
   try {
     const product = await productServise.getAllProducts();
-    res.json(products);
+    res.json(product);
   } catch (error) {
     res.status(500).json({ error: "Error al otener los productos" });
   }
 });
 
-router.get("/models/products:id", async (req, res) => {
+router.get("/routes/products/:id",validateProductData, async (req, res) => {
   try {
-    const products = await productServise.getProdctsById(req.params.id);
+    const products = await productServise.getProductsById(req.params.id);
     if (!products) {
       return res.status(404).json({ message: "Producto no encontrado" });
     }
-    res.json(product);
+    res.json(products);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener el producto" });
   }
 });
 
-router.post("/models/products", async (req, res) => {
+router.post("/routes/products",validateProductData, async (req, res) => {
   try {
     const newProduct = await productServise.createProduct(req.body);
     res.status(201).json(newProduct);
@@ -32,7 +32,7 @@ router.post("/models/products", async (req, res) => {
   }
 });
 
-router.put("/models/products/:id", async (req, res) => {
+router.put("/routes/products/:id",validateProductData, async (req, res) => {
   try {
     const upadatedProduct = await productServise.upadateProduct(req.params.id);
     if (!upadatedProduct) {
@@ -44,7 +44,7 @@ router.put("/models/products/:id", async (req, res) => {
   }
 });
 
-router.delete("/models/products/:id", async (req, res) => {
+router.delete("/routes/products/:id",validateProductData, async (req, res) => {
   try {
     const deletedProduct = await productServise.deleteProduct(req.params.id);
     if (!deletedProduct) {

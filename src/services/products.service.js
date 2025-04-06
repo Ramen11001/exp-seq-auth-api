@@ -1,10 +1,10 @@
-const products = require("../models/product");
+const Products = require("../models/product");
 
 const getAllProducts = async () => {
   return await Product.findAll();
 };
 
-const getProductById = async () => {
+const getProductsById = async (id) => {
   return await Product.findByPk(id);
 };
 const createProduct = async (data) => {
@@ -14,7 +14,7 @@ const createProduct = async (data) => {
 const upadateProduct = async (id, data) => {
   const product = await Product.findByPk(id);
   if (product) {
-    return await product.upadate(data); //Sequelize's own function
+    return await product.update(data); //Sequelize's own function
   }
   return null;
 };
@@ -29,7 +29,7 @@ const deleteProduct = async (id) => {
 
 module.exports = {
   getAllProducts,
-  getProductById,
+  getProductsById,
   createProduct,
   upadateProduct,
   deleteProduct,

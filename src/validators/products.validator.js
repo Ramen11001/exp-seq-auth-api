@@ -1,29 +1,25 @@
-const validateProductData = (data) => {
-  const errors = [];
+const { body } = require("express-validator");
 
-  if (!data.name || typeof data.name !== "string") {
-    errors.push(
-      'El campo "name" es obligatorio y debe ser una cadena de texto.'
-    );
-  }
-  if (!data.description || typeof data.description !== "string") {
-    errors.push(
-      'El campo "description" es obligatorio y debe ser una cadena de texto.'
-    );
-  }
-
-  if (data.price !== undefined) {
-    if (isNaN(data.price) || Number(data.price) <= 0 || !Number.isFinite(data.price)) {
-      errors.push('El campo "price" debe ser un número positivo y con dos decimales.');
-    }
-  }
-  if (!data.user_id || isNaN(data.user_id)) {
-    errors.push(
-      'El campo "user_id" es obligatorio y debe ser un número válido.'
-    );
-  }
-
-  return errors;
-};
+const validateProductData = [
+  body("name")
+    .notEmpty()
+    .withMessage('El campo "name" es obligatorio.')
+    .isString()
+    .withMessage('El campo "name" debe ser una cadena de texto.'),
+  body("description")
+    .notEmpty()
+    .withMessage('El campo "description" es obligatorio.')
+    .isString()
+    .withMessage('El campo "description" debe ser una cadena de texto.'),
+  body("price")
+    .optional() 
+    .isFloat({ gt: 0 })
+    .withMessage('El campo "price" debe ser un número positivo.'),
+  body("user_id")
+    .notEmpty()
+    .withMessage('El campo "user_id" es obligatorio.')
+    .isInt()
+    .withMessage('El campo "user_id" debe ser un número entero válido.'),
+];
 
 module.exports = { validateProductData };
