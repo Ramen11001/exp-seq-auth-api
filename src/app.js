@@ -38,4 +38,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//connecting routes to the main app
+const productRoutes = require('./routes/products.route');
+app.use(productRoutes);
+
+// init server
+app.listen(3000, () => {
+  console.log('Servidor corriendo en el puerto 3000');
+});
+
+
 module.exports = app;
