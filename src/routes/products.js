@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const productServise = require("../services/products.service");
+const validateProductData = require("../validators/products.validator");
+const { body } = require("express-validator");
 
-router.get("/routes/products", validateProductData, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const product = await productServise.getAllProducts();
     res.json(product);
@@ -11,7 +13,7 @@ router.get("/routes/products", validateProductData, async (req, res) => {
   }
 });
 
-router.get("/routes/products/:id",validateProductData, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const products = await productServise.getProductsById(req.params.id);
     if (!products) {
@@ -23,7 +25,7 @@ router.get("/routes/products/:id",validateProductData, async (req, res) => {
   }
 });
 
-router.post("/routes/products",validateProductData, async (req, res) => {
+router.post("/", validateProductData, async (req, res) => {
   try {
     const newProduct = await productServise.createProduct(req.body);
     res.status(201).json(newProduct);
@@ -32,7 +34,7 @@ router.post("/routes/products",validateProductData, async (req, res) => {
   }
 });
 
-router.put("/routes/products/:id",validateProductData, async (req, res) => {
+router.put("/:id", validateProductData, async (req, res) => {
   try {
     const upadatedProduct = await productServise.upadateProduct(req.params.id);
     if (!upadatedProduct) {
@@ -44,7 +46,7 @@ router.put("/routes/products/:id",validateProductData, async (req, res) => {
   }
 });
 
-router.delete("/routes/products/:id",validateProductData, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const deletedProduct = await productServise.deleteProduct(req.params.id);
     if (!deletedProduct) {

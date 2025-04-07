@@ -7,12 +7,11 @@ const validateProductData = [
     .isString()
     .withMessage('El campo "name" debe ser una cadena de texto.'),
   body("description")
-    .notEmpty()
-    .withMessage('El campo "description" es obligatorio.')
+    .optional()
     .isString()
     .withMessage('El campo "description" debe ser una cadena de texto.'),
   body("price")
-    .optional() 
+    .notEmpty()
     .isFloat({ gt: 0 })
     .withMessage('El campo "price" debe ser un número positivo.'),
   body("user_id")
@@ -22,4 +21,4 @@ const validateProductData = [
     .withMessage('El campo "user_id" debe ser un número entero válido.'),
 ];
 
-module.exports = { validateProductData };
+module.exports = validateProductData;
