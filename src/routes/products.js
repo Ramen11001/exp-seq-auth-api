@@ -1,46 +1,56 @@
 const express = require("express");
 const router = express.Router();
-const productServise = require("../services/products.service");
+const productService = require("../services/products.service");
 const validateProductData = require("../validators/products.validator");
-const { body } = require("express-validator");
-
-router.get("/", async (req, res) => {
-  try {
-    const product = await productServise.getAllProducts();
-    res.json(product);
-  } catch (error) {
-    res.status(500).json({ error: "Error al otener los productos" });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const products = await productServise.getProductsById(req.params.id);
-    if (!products) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: "Error al obtener el producto" });
-  }
-});
+const { validationResult } = require("express-validator");
 
 router.post("/", validateProductData, async (req, res) => {
+  const errors = validationResult(req);
+  console.log(errors.array());
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
-    const newProduct = await productServise.createProduct(req.body);
+    const newProduct = await productService.createProduct(req.body);
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(500).json({ error: "Error al crear el producto" });
   }
 });
 
-router.put("/:id", validateProductData, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const upadatedProduct = await productServise.upadateProduct(req.params.id);
-    if (!upadatedProduct) {
+    const products = await productService.getAllProducts();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los productos" });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await productService.getProductsById(req.params.id);
+    if (!product) {
       return res.status(404).json({ message: "Producto no encontrado" });
     }
-    res.json(upadatedProduct);
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener el producto" });
+  }
+});
+
+router.put("/:id", validateProductData, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const updatedProduct = await productService.upadateProduct(req.params.id, req.body);
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Producto no encontrado" });
+    }
+    res.json(updatedProduct);
   } catch (error) {
     res.status(500).json({ error: "Error al actualizar el producto" });
   }
@@ -48,11 +58,8 @@ router.put("/:id", validateProductData, async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedProduct = await productServise.deleteProduct(req.params.id);
-    if (!deletedProduct) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
-    res.json({ message: "Producto eliminado exitosamente" });
+    const deletedProduct = await productService.deleteProduct(req.params.id);
+    res.json({ message: "Producto eliminado con éxito" });
   } catch (error) {
     res.status(500).json({ error: "Error al eliminar el producto" });
   }

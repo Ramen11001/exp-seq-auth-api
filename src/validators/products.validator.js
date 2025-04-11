@@ -2,9 +2,11 @@ const { body } = require("express-validator");
 
 const validateProductData = [
   body("name")
+  .trim()
     .notEmpty()
     .withMessage('El campo "name" es obligatorio.')
     .isString()
+    .isLength({ min: 1 })
     .withMessage('El campo "name" debe ser una cadena de texto.'),
   body("description")
     .optional()
@@ -14,11 +16,11 @@ const validateProductData = [
     .notEmpty()
     .isFloat({ gt: 0 })
     .withMessage('El campo "price" debe ser un número positivo.'),
-  body("user_id")
+  body("userId")
     .notEmpty()
-    .withMessage('El campo "user_id" es obligatorio.')
+    .withMessage('El campo userId es obligatorio.')
     .isInt()
-    .withMessage('El campo "user_id" debe ser un número entero válido.'),
+    .withMessage('El campo userId debe ser un número entero válido.'),
 ];
 
 module.exports = validateProductData;

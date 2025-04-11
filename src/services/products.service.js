@@ -1,3 +1,4 @@
+const e = require("express");
 const { Product } = require("../models");
 
 const getAllProducts = async () => {
@@ -11,7 +12,7 @@ const createProduct = async (data) => {
   return await Product.create(data); //data is generic
 };
 
-const upadateProduct = async (id, data) => {
+const upadateProduct  = async (id, data) => {
   const product = await Product.findByPk(id);
   if (product) {
     return await product.update(data); //Sequelize's own function
@@ -21,10 +22,12 @@ const upadateProduct = async (id, data) => {
 
 const deleteProduct = async (id) => {
   const product = await Product.findByPk(id);
-  if (product) {
-    await product.destroy(); //Sequelize's own function
+  if(!product){
+    throw new Error("Producto no encontrado"); 
   }
-  return null;
+
+await product.destroy(); //Sequelize's own function
+return { message: "Producto eliminado exitosamente" };
 };
 
 module.exports = {
