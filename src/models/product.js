@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         });
 
        Product.hasMany(models.Comment, { //I used hasMany because a product can have several comments
-          foreignKey: 'productsId', //IT IS MADE IN MIGRATION
+          foreignKey: 'productId', //IT IS MADE IN MIGRATION
           onDelete: 'CASCADE', // Delete products when deleting the user
         });
     }
@@ -29,11 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     price: {
       type: DataTypes.DOUBLE,
-      allowNull: true,
+      allowNull: false,
     },
   },
      {
