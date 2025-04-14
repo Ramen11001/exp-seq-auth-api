@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const productService = require("../services/products.service");
-const {validateProductData, validateProductDataUpdate } = require("../validators/products.validator");
+const { validateProductData, validateProductDataUpdate } = require("../validators/products.validator");
 const { validationResult } = require("express-validator");
-
 
 router.post("/", validateProductData, async (req, res) => {
   const errors = validationResult(req);
