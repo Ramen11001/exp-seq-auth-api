@@ -23,7 +23,7 @@ const validateProductData = [
     .withMessage('El campo userId debe ser un número entero válido.'),
 ];
 
-//Tengo que hacer un validador nuevo, para cuando quiera aztualizar solo tome los n campos que quiero
+//Validator to update functions
 const validateProductDataUpdate = [
   body("name")
     .optional()
