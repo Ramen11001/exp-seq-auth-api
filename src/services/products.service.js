@@ -23,7 +23,7 @@ const upadateProduct  = async (id, data) => {
 const deleteProduct = async (id) => {
   const product = await Product.findByPk(id);
   if(!product){
-    throw new Error("Producto no encontrado"); 
+    return null;
   }
 
 await product.destroy(); //Sequelize's own function

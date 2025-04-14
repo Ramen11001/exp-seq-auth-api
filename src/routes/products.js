@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const productService = require("../services/products.service");
-const validateProductData = require("../validators/products.validator");
+const {validateProductData, validateProductDataUpdate } = require("../validators/products.validator");
 const { validationResult } = require("express-validator");
+
 
 router.post("/", validateProductData, async (req, res) => {
   const errors = validationResult(req);
@@ -39,7 +40,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", validateProductData, async (req, res) => {
+router.put("/:id", validateProductDataUpdate, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -59,6 +60,9 @@ router.put("/:id", validateProductData, async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const deletedProduct = await productService.deleteProduct(req.params.id);
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
     res.json({ message: "Producto eliminado con éxito" });
   } catch (error) {
     res.status(500).json({ error: "Error al eliminar el producto" });
