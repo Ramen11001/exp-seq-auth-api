@@ -3,6 +3,7 @@ const router = express.Router();
 const productService = require("../services/products.service");
 const { validateProductData, validateProductDataUpdate } = require("../validators/products.validator");
 const { validationResult } = require("express-validator");
+const queryMiddleware = require('../middleware/filter');
 
 router.post("/", validateProductData, async (req, res) => {
   const errors = validationResult(req);
@@ -67,5 +68,17 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: "Error al eliminar el producto" });
   }
 });
+
+//help idk
+router.get('/', queryMiddleware, async (req, res) => {
+  try {
+      const products = await Product.findAll(req.queryOptions);
+      res.json(products);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
 
 module.exports = router;
