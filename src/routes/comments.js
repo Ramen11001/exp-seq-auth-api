@@ -3,6 +3,7 @@ const router = express.Router();
 const commentService = require("../services/comments.service");
 const { validateCommentData, validateCommentDataUpdate } = require("../validators/comments.validator");
 const { validationResult } = require("express-validator");
+const { filterPagination } = require('../middleware/filter');
 
 router.post("/", validateCommentData, async (req, res) => {
   const errors = validationResult(req);
@@ -18,9 +19,10 @@ router.post("/", validateCommentData, async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+
+router.get("/", filterPagination, async (req, res) => {
   try {
-    const comments = await commentService.getAllComment();
+    const comments = await commentService.getComment(req.queryOptions);
     res.json(comments);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener los comentarios" });

@@ -1,8 +1,9 @@
 const e = require("express");
 const { Comment } = require("../models");
 
-const getAllComment = async () => {
-  return await Comment.findAll();
+
+const getComment = async (queryOptions = {}) => {
+  return await Comment.findAll(queryOptions);
 };
 
 const getCommentsById = async (id) => {
@@ -31,7 +32,7 @@ return { message: "Comentario eliminado exitosamente" };
 };
 
 module.exports = {
-  getAllComment,
+  getComment,
   getCommentsById,
   createComment,
   upadateComment,
