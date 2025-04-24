@@ -13,10 +13,13 @@ function filterPagination(req, res, next) {
       [Op.or]: [
         { name: { [Op.iLike]: `%${search}%` } },
         { description: { [Op.iLike]: `%${search}%` } },
+        { username: { [Op.iLike]: `%${search}%` } }, 
+        { password: { [Op.iLike]: `%${search}%` } }, 
+        { text: { [Op.iLike]: `%${search}%` } },
       ],
     };
   }
-  //NO FUNCIONA
+  //OK
   if (include) {
     queryOptions.include = include.split(",").map((relation) => {
       if (relation === "Comments") {
