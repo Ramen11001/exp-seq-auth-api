@@ -26,18 +26,18 @@ The project must fulfill the following requirements:
 - `POST /auth/login` - Authenticate a user and obtain an access token..  
 
 ### **Products**
-- `GET /models/products` - List products with support for filters and pagination.
-- `GET /models/products/:id` - Retrieve a product by its ID.
-- `POST /models/products` - Create a product (authentication required).
-- `PUT /models/products/:id` - Update an existing product (authentication required).
-- `DELETE /models/products/:id` - Delete a product (authentication required).
+- `GET /products` - List products with support for filters and pagination.
+- `GET /products/:id` - Retrieve a product by its ID.
+- `POST /products` - Create a product (authentication required).
+- `PUT /products/:id` - Update an existing product (authentication required).
+- `DELETE /products/:id` - Delete a product (authentication required).
 
 ### **Comments**
-- `GET /models/comments` - List comments with support for filters and pagination.  
-- `GET /models/comments/:id` - Retrieve a comment by its ID.  
-- `POST /models/comments` - Create a new comment (authentication required).
-- `PUT /models/comments/:id` - Update an existing comment (authentication required). 
-- `DELETE /models/comments/:id` - Delete a comment (authentication required).  
+- `GET /comments` - List comments with support for filters and pagination.  
+- `GET /comments/:id` - Retrieve a comment by its ID.  
+- `POST /comments` - Create a new comment (authentication required).
+- `PUT /comments/:id` - Update an existing comment (authentication required). 
+- `DELETE /comments/:id` - Delete a comment (authentication required).  
 
 ## ⚙️ **Installation**
 

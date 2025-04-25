@@ -1,31 +1,48 @@
 const { Op } = require('sequelize');
 const Comment = require("../models/comment");
 const Product = require("../models/product");
+const User = require("../models/user");
 
 function filterPagination(req, res, next) {
   const { search, include, limit, offset, pagination } = req.query;
   const queryOptions = {};
 
-
-  //OK
-  if (search) {
-    queryOptions.where = {
-      [Op.or]: [
-        { name: { [Op.iLike]: `%${search}%` } },
-        { description: { [Op.iLike]: `%${search}%` } },
-        { username: { [Op.iLike]: `%${search}%` } }, 
-        { password: { [Op.iLike]: `%${search}%` } }, 
-        { text: { [Op.iLike]: `%${search}%` } },
-      ],
-    };
-  }
-  //OK
-  if (include) {
-    queryOptions.include = include.split(",").map((relation) => {
-      if (relation === "Comments") {
-        return { association: 'Comments' };
+  if (req.baseUrl == '/products') {
+    if (search) {
+      queryOptions.where = {
+        [Op.or]: [
+          { name: { [Op.iLike]: `%${search}%` } },
+          { description: { [Op.iLike]: `%${search}%` } },
+        ],
       }
-      return null;
+    }
+  };
+
+  if (req.baseUrl == '/comments') {
+    if (search) {
+      queryOptions.where = {
+        [Op.or]: [
+          { text: { [Op.iLike]: `%${search}%` } },
+        ],
+      }
+    }
+  }
+
+  if (req.baseUrl == '/users') {
+    if (search) {
+      queryOptions.where = {
+        [Op.or]: [
+          { username: { [Op.iLike]: `%${search}%` } },
+          { password: { [Op.iLike]: `%${search}%` } },
+        ],
+      }
+    }
+  }
+
+  //Aquí ya viene como array. El split es innecesario. Cómo sería para un único caso que le mande
+  if (include) {
+    queryOptions.include = include.map((relation) => {
+      return { association: relation };
     });
   }
   //OK??
@@ -36,7 +53,7 @@ function filterPagination(req, res, next) {
     delete queryOptions.limit; // Elimina la paginación si `pagination=false`
     delete queryOptions.offset;
   }
-  
+
 
   req.queryOptions = queryOptions;
   next();
