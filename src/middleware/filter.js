@@ -1,8 +1,4 @@
 const { Op } = require('sequelize');
-const Comment = require("../models/comment");
-const Product = require("../models/product");
-const User = require("../models/user");
-
 function filterPagination(req, res, next) {
   const { search, include, limit, offset, pagination } = req.query;
   const queryOptions = {};
@@ -38,19 +34,20 @@ function filterPagination(req, res, next) {
       }
     }
   }
-
-  //Aquí ya viene como array. El split es innecesario. Cómo sería para un único caso que le mande
   if (include) {
-    queryOptions.include = include.map((relation) => {
-      return { association: relation };
-    });
-  }
-  //OK??
+    if (Array.isArray(include)) {
+      queryOptions.include = include.map((relation) => {
+        return { association: relation };
+      });
+    }
+    queryOptions.include = { association: include };
+  };
+
   if (pagination === "true") {
     queryOptions.limit = limit && !isNaN(limit) ? parseInt(limit, 10) : 10;
     queryOptions.offset = offset && !isNaN(offset) ? parseInt(offset, 10) : 0;
   } else {
-    delete queryOptions.limit; // Elimina la paginación si `pagination=false`
+    delete queryOptions.limit;
     delete queryOptions.offset;
   }
 
