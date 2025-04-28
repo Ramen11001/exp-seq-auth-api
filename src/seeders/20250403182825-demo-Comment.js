@@ -82,6 +82,7 @@ module.exports = {
 
   },
   async down(queryInterface, Sequelize) {
+    //This is for delete the Products Table
     return queryInterface.bulkDelete('Comments', null, {});
   }
 };
