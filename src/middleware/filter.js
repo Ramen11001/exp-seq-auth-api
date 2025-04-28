@@ -46,8 +46,10 @@ function filterPagination(req, res, next) {
       queryOptions.include = include.map((relation) => {
         return { association: relation };
       });
+    } else {
+      queryOptions.include = { association: include };
     }
-    queryOptions.include = { association: include };
+    
   }
   // Pagination setup
   if (pagination === "true") {
