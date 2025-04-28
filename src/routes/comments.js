@@ -1,9 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const commentService = require("../services/comments.service");
-const { validateCommentData, validateCommentDataUpdate } = require("../validators/comments.validator");
+const {
+  validateCommentData,
+  validateCommentDataUpdate,
+} = require("../validators/comments.validator");
 const { validationResult } = require("express-validator");
+const { filterPagination } = require("../middleware/filter");
 
+/**
+ * Route handler for creating a new comment.
+ * Validates the request body before passing it to the service.
+ *
+ * @route POST /comments
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ */
 router.post("/", validateCommentData, async (req, res) => {
   const errors = validationResult(req);
   console.log(errors.array());
@@ -18,15 +30,31 @@ router.post("/", validateCommentData, async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+/**
+ * Route handler for retrieving comments with pagination and filtering.
+ * Uses middleware to modify the query options before passing them to the service.
+ *
+ * @route GET /comments
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ */
+router.get("/", filterPagination, async (req, res) => {
   try {
-    const comments = await commentService.getAllComment();
+    const comments = await commentService.getComment(req.queryOptions);
     res.json(comments);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener los comentarios" });
   }
 });
 
+/**
+ * Route handler for retrieving a specific comment by ID.
+ * Returns a 404 error if the comment is not found.
+ *
+ * @route GET /comments/:id
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ */
 router.get("/:id", async (req, res) => {
   try {
     const comment = await commentService.getCommentsById(req.params.id);
@@ -39,6 +67,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+/**
+ * Route handler for updating a comment by ID.
+ * Validates the request body and returns a 404 error if the comment is not found.
+ *
+ * @route PUT /comments/:id
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ */
 router.put("/:id", validateCommentDataUpdate, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -46,7 +82,10 @@ router.put("/:id", validateCommentDataUpdate, async (req, res) => {
   }
 
   try {
-    const updatedComment = await commentService.upadateComment(req.params.id, req.body);
+    const updatedComment = await commentService.updateComment(
+      req.params.id,
+      req.body
+    );
     if (!updatedComment) {
       return res.status(404).json({ message: "Comentario no encontrado" });
     }
@@ -56,6 +95,14 @@ router.put("/:id", validateCommentDataUpdate, async (req, res) => {
   }
 });
 
+/**
+ * Route handler for deleting a comment by ID.
+ * Returns a 404 error if the comment does not exist.
+ *
+ * @route DELETE /comments/:id
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ */
 router.delete("/:id", async (req, res) => {
   try {
     const deletedComment = await commentService.deleteComment(req.params.id);
