@@ -2,7 +2,7 @@ module.exports = router;
 const jwt = require("jsonwebtoken");
 const User = require("../models/user"); 
 
-const SECRET_KEY = "secret_key"; // Yo estoy usando md5 para encriptar el password. Tiene algo que ver? 
+const SECRET_KEY = "secret_key"; 
 
 /**
  * User authentication and token generation
