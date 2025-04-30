@@ -6,10 +6,10 @@ const { User } = require("../models");
  * @async
  * @function getUser
  * @param {object} [queryOptions={}] - Options for filtering and pagination.
- * @returns {Promise<Array>} - List of products matching query options.
+ * @returns {Promise<Array>} - List of user matching query options.
  */
 const getUser = async (queryOptions = {}) => {
-  return await Product.findAll(queryOptions);
+  return await User.findAll(queryOptions);
 };
 
 /**

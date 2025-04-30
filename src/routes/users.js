@@ -7,12 +7,6 @@ const {
 const { validationResult } = require("express-validator");
 const { filterPagination } = require("../middleware/filter");
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
-
-
 /**
  * Route handler for creating a new user.
  * Validates the request body before passing it to the service.
