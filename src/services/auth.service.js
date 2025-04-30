@@ -1,8 +1,6 @@
-module.exports = router;
 const jwt = require("jsonwebtoken");
-const User = require("../models/user"); 
-
-const SECRET_KEY = "secret_key"; 
+const { User } = require("../models");
+const SECRET_KEY = "secret_key";
 
 /**
  * User authentication and token generation
@@ -11,13 +9,13 @@ const SECRET_KEY = "secret_key";
  * @returns {string} JWT token
  */
 const login = async (username, password) => {
-    const user = await User.findOne({ where: { username } });
-  
-    if (!user || user.password !== password) {
-      throw new Error("Credenciales inválidas");
-    }
-  
-    return jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
-  };
-  
-  module.exports = { login };
+  const user = await User.findOne({ where: { username } });
+
+  if (!user || user.password !== password) {
+    throw new Error("Credenciales inválidas");
+  }
+
+  return jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
+};
+
+module.exports = { login };

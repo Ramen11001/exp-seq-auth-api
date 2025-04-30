@@ -18,7 +18,6 @@ const { filterPagination } = require("../middleware/filter");
  */
 router.post("/", validateProductData, async (req, res) => {
   const errors = validationResult(req);
-  console.log(errors.array());
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
