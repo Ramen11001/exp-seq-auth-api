@@ -5,14 +5,14 @@ const { body } = require("express-validator");
  * Ensures required fields are present and correctly formatted.
  */
 const validateUserData = [
-    body("name")
+    body("username")
         .trim()
         .notEmpty()
-        .withMessage("El campo name es obligatorio.")
+        .withMessage("El campo username es obligatorio.")
         .isString()
         .isLength({ min: 1 })
-        .withMessage("El campo name debe ser una cadena de texto."),
-    body("description")
+        .withMessage("El campo username debe ser una cadena de texto."),
+    body("password")
         .trim()
         .notEmpty()
         .withMessage("El campo password es obligatorio.")
@@ -26,14 +26,14 @@ const validateUserData = [
  * Ensures optional fields are correctly formatted.
  */
 const validateUserDataUpdate = [
-    body("name")
+    body("username")
         .optional()
         .isString()
-        .withMessage("El campo description debe ser una cadena de texto."),
+        .withMessage("El campo username debe ser una cadena de texto."),
     body("password")
         .optional()
         .isString()
-        .withMessage("El campo description debe ser una cadena de texto."),
+        .withMessage("El campo username debe ser una cadena de texto."),
 ];
 
 module.exports = {

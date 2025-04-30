@@ -1,5 +1,5 @@
 const { User } = require("../models");
-
+const md5=require('md5');
 /**
  * Retrieves all users based on query options.
  *
@@ -33,6 +33,7 @@ const getUserById = async (id) => {
  * @returns {Promise<object>} - The newly created user.
  */
 const createUser = async (data) => {
+  data.password = md5(data.password);
   return await User.create(data); //data is generic
 };
 
@@ -46,9 +47,10 @@ const createUser = async (data) => {
  * @returns {Promise<object|null>} - The updated user or null if not found.
  */
 const updateUser = async (id, data) => {
-  const users = await User.findByPk(id);
-  if (users) {
-    return await users.update(data); //Sequelize's own function
+  const user = await User.findByPk(id);
+  if (user) {
+    data.password = md5(data.password);
+    return await user.update(data); //Sequelize's own function
   }
   return null;
 };
