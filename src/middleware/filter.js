@@ -35,7 +35,6 @@ function filterPagination(req, res, next) {
       queryOptions.where = {
         [Op.or]: [
           { username: { [Op.iLike]: `%${search}%` } },
-          { password: { [Op.iLike]: `%${search}%` } },
         ],
       };
     }
