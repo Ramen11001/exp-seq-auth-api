@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const md5=require('md5');
+const md5 = require("md5");
 /**
  * Retrieves all users based on query options.
  *
@@ -9,7 +9,10 @@ const md5=require('md5');
  * @returns {Promise<Array>} - List of user matching query options.
  */
 const getUser = async (queryOptions = {}) => {
-  return await User.findAll(queryOptions);
+  return await User.findAll({
+    ...queryOptions,
+    attributes: { exclude: ["password"] }, // 🚫 No incluir la contraseña en la consulta
+  });
 };
 
 /**
@@ -49,7 +52,9 @@ const createUser = async (data) => {
 const updateUser = async (id, data) => {
   const user = await User.findByPk(id);
   if (user) {
-    data.password = md5(data.password);
+    if (data.password) {
+      data.password = md5(data.password);
+    }
     return await user.update(data); //Sequelize's own function
   }
   return null;
@@ -78,5 +83,5 @@ module.exports = {
   getUserById,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };
