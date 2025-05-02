@@ -11,7 +11,7 @@ const md5 = require("md5");
 const getUser = async (queryOptions = {}) => {
   return await User.findAll({
     ...queryOptions,
-    attributes: { exclude: ["password"] }, // 🚫 No incluir la contraseña en la consulta
+    attributes: { exclude: ["password"] }, // 
   });
 };
 
