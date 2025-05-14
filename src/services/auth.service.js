@@ -15,7 +15,10 @@ const login = async (username, password) => {
     throw new Error("Credenciales inválidas");
   }
 
-  return jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
+  return{
+   token:jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: "1h" }),
+     user: { id: user.id, username: user.username }
+  } 
 };
 
 module.exports = { login };

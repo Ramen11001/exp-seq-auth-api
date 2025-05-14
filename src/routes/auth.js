@@ -10,10 +10,11 @@ const router = express.Router();
  * @returns {string} token - JWT token if authentication is successful
  */
 router.post("/login", async (req, res) => {
+    console.log("Datos recibidos en el backend:", req.body);
     try {
         const { username, password } = req.body;
         const token = await authService.login(username, password);
-        res.json({ token });
+        res.json(result);
     } catch (error) {
         res.status(401).json({ error: "Credenciales inválidas" });
     }
