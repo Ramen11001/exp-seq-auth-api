@@ -14,7 +14,7 @@ router.post("/login", async (req, res) => {
     try {
         const { username, password } = req.body;
         const token = await authService.login(username, password);
-        res.json(result);
+        res.json(token);
     } catch (error) {
         res.status(401).json({ error: "Credenciales inválidas" });
     }
