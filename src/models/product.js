@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Comment, {
         foreignKey: "productId", // Defined in migration, links product to multiple comments.
         onDelete: "CASCADE", // Enables cascading deletion when a product is removed.
+        as:"comments"
       });
     }
   }
