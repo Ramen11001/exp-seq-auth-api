@@ -10,6 +10,7 @@ const { Op } = require("sequelize");
 function filterPagination(req, res, next) {
   const { search, include, limit, offset, pagination } = req.query;
   const queryOptions = {};
+
   // Search configuration for products
   if (req.baseUrl == "/products") {
     if (search) {
@@ -21,6 +22,30 @@ function filterPagination(req, res, next) {
       };
     }
   }
+   const priceConditions = [];
+
+    if (req.query.minPrecio && !isNaN(req.query.minPrecio)) {
+      // Add price filter for minimum price
+      priceConditions.push({ price: { [Op.gte]: parseFloat(req.query.minPrecio) } });
+    }
+
+    if (req.query.maxPrecio && !isNaN(req.query.maxPrecio)) {
+      // Add price filter for maximum price
+      priceConditions.push({ price: { [Op.lte]: parseFloat(req.query.maxPrecio) } });
+    }
+
+    // If priceConditions contains filters, apply them with Op.and
+    if (priceConditions.length > 0) {
+      if (queryOptions.where) {
+        queryOptions.where = {
+          [Op.and]: [queryOptions.where, ...priceConditions]
+        };
+      } else {
+        queryOptions.where = { [Op.and]: priceConditions };
+      }
+    }
+  
+
   // Search configuration for comments
   if (req.baseUrl == "/comments") {
     if (search) {
@@ -45,10 +70,10 @@ function filterPagination(req, res, next) {
       queryOptions.include = include.map((relation) => {
         return { association: relation };
       });
-    } else{
+    } else {
       queryOptions.include = { association: include };
     }
-    
+
   }
   // Pagination setup
   if (pagination === "true") {
