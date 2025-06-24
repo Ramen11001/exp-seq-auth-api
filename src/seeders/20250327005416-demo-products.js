@@ -119,7 +119,7 @@ module.exports = {
       },
       {
         name: "Romper",
-        description: "Trendy floral romper, size M, playful and modern.",
+        description: "Trendy floral romper, size L, playful and modern.",
         price: 28.99,
         createdAt: new Date(),
         updatedAt: new Date(),
