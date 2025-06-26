@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
  * @param {function} next - Function to continue to the next middleware.
  */
 function filterPagination(req, res, next) {
-  const { search, include, limit, offset, pagination } = req.query;
+  const { search, include, limit, offset, pagination, attributes} = req.query;
   const queryOptions = {};
 
   // Search configuration for products
@@ -17,9 +17,13 @@ function filterPagination(req, res, next) {
       queryOptions.where = {
         [Op.or]: [
           { name: { [Op.iLike]: `%${search}%` } },
-          { description: { [Op.iLike]: `%${search}%` } },
+          { description: { [Op.iLike]: `%${search}%`} },
         ],
       };
+
+       queryOptions.attributes = {
+    include: ['userId']  // Incluir este campo
+  };
     }
   }
    const priceConditions = [];
