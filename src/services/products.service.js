@@ -45,12 +45,19 @@ const createProduct = async (data) => {
  * @param {object} data - The new data for the product.
  * @returns {Promise<object|null>} - The updated product or null if not found.
  */
-const updateProduct = async (id, data) => {
+const updateProduct = async (id, data, userId) => {
   const product = await Product.findByPk(id);
-  if (product) {
-    return await product.update(data); //Sequelize's own function
+  
+  if (!product) {
+    throw new Error('Producto no encontrado');
   }
-  return null;
+  
+  
+  if (product.userId !== userId) {
+    throw new Error('No tienes permiso para editar este producto');
+  }
+  
+  return await product.update(data);
 };
 
 /**
