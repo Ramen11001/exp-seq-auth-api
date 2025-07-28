@@ -23,8 +23,6 @@ const validateCommentData = [
   body("userId")
     .notEmpty()
     .withMessage("El campo userId es obligatorio.")
-    .isInt({ min: 1, max: 5 })
-    .withMessage('El campo "rating" debe ser un número entre 1 y 5.'),
 ];
 
 /**
