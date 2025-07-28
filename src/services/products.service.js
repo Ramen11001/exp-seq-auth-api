@@ -47,16 +47,16 @@ const createProduct = async (data) => {
  */
 const updateProduct = async (id, data, userId) => {
   const product = await Product.findByPk(id);
-  
+
   if (!product) {
     throw new Error('Producto no encontrado');
   }
-  
-  
+
+
   if (product.userId !== userId) {
     throw new Error('No tienes permiso para editar este producto');
   }
-  
+
   return await product.update(data);
 };
 
@@ -74,6 +74,9 @@ const deleteProduct = async (id) => {
     return null;
   }
 
+  if (product.userId !== userId) {
+    throw new Error('No tienes permiso para eliminar este producto');
+  }
   await product.destroy(); //Sequelize's own function
   return { message: "Producto eliminado exitosamente" };
 };
