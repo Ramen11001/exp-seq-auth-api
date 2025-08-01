@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.changeColumn('Products', 'description', {
       type: Sequelize.STRING,
-      allowNull: true, // Change this
+      allowNull: true,
     });
   },
 

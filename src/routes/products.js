@@ -82,7 +82,6 @@ router.put("/:id", validateProductDataUpdate, async (req, res) => {
   }
 
   try {
-    // Verificar que el usuario está autenticado
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "Debes iniciar sesión" });
     }
@@ -90,12 +89,11 @@ router.put("/:id", validateProductDataUpdate, async (req, res) => {
     const updatedProduct = await productService.updateProduct(
       req.params.id,
       req.body,
-      req.user.id // Pasar el ID del usuario autenticado
+      req.user.id 
     );
     
     res.json(updatedProduct);
   } catch (error) {
-    // Manejar diferentes tipos de errores
     if (error.message === 'Producto no encontrado') {
       return res.status(404).json({ error: error.message });
     }

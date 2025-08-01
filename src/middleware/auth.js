@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = "secret_key"; // TIENES QUE LA CONTRA DEL USER CIFRARLA Y COMPARARLA. NO OLVIDAR
+const SECRET_KEY = "secret_key";
 
 /**
  * Middleware to validate the token on private paths.

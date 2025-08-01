@@ -18,7 +18,7 @@ app.set("view engine", "jade");
 
 //For web
 app.use(cors({
-    origin: 'http://localhost:4200',  // Permitir acceso desde Angular
+    origin: 'http://localhost:4200',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));

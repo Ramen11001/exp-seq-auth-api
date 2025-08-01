@@ -70,19 +70,10 @@ router.get("/:id", async (req, res) => {
  * Get comments for a specific product
  * @route GET /comments/product/:productId
  */
-router.get('/:productId', filterPagination, async (req, res) => {
+router.get('/product/:productId', filterPagination, async (req, res) => {
   try {
-    const whereClause = req.query.productId ? { productId: req.query.productId } : {};  
-    const comments = await commentService.getComments({
-      ...req.queryOptions,
-      where: whereClause,
-      include: [
-        {
-          model: User,
-          attributes: ['id', 'username']
-        }
-      ]
-    });
+    const whereClause = req.params.productId ? req.params.productId : null ;  
+    const comments = await commentService.getCommentsByProduct(whereClause);
 
     res.json(comments); 
   } catch (error) {
