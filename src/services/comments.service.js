@@ -1,5 +1,4 @@
-const { Comment } = require("../models");
-
+const { Comment, User  } = require("../models");
 /**
  * Retrieves all comments based on query options.
  *
@@ -22,6 +21,24 @@ const getComment = async (queryOptions = {}) => {
  */
 const getCommentsById = async (id) => {
   return await Comment.findByPk(id);
+};
+
+/**
+ * Retrieves comments for a specific product
+ * @param {number} productId - ID of the product
+ * @returns {Promise<Array>} - List of comments for the product
+ */
+const getCommentsByProduct = async (productId) => {
+  return await Comment.findAll({
+    where: { productId },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'username']
+      }
+    ],
+    order: [['createdAt', 'DESC']]
+  });
 };
 
 /**
@@ -74,6 +91,7 @@ const deleteComment = async (id) => {
 module.exports = {
   getComment,
   getCommentsById,
+  getCommentsByProduct,
   createComment,
   updateComment,
   deleteComment,

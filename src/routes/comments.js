@@ -67,6 +67,22 @@ router.get("/:id", async (req, res) => {
 });
 
 /**
+ * Get comments for a specific product
+ * @route GET /comments/product/:productId
+ */
+router.get('/product/:productId', filterPagination, async (req, res) => {
+  try {
+    const whereClause = req.params.productId ? req.params.productId : null ;  
+    const comments = await commentService.getCommentsByProduct(whereClause);
+
+    res.json(comments); 
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: "Error al obtener los comentarios" });
+  }
+});
+
+/**
  * Route handler for updating a comment by ID.
  * Validates the request body and returns a 404 error if the comment is not found.
  *

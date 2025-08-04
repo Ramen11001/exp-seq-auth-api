@@ -74,6 +74,7 @@ router.get("/:id", async (req, res) => {
  * @param {object} req - The HTTP request object.
  * @param {object} res - The HTTP response object.
  */
+// routes/productRoutes.js
 router.put("/:id", validateProductDataUpdate, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -81,15 +82,26 @@ router.put("/:id", validateProductDataUpdate, async (req, res) => {
   }
 
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "Debes iniciar sesión" });
+    }
+
     const updatedProduct = await productService.updateProduct(
       req.params.id,
-      req.body
+      req.body,
+      req.user.id 
     );
-    if (!updatedProduct) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
+    
     res.json(updatedProduct);
   } catch (error) {
+    if (error.message === 'Producto no encontrado') {
+      return res.status(404).json({ error: error.message });
+    }
+    
+    if (error.message === 'No tienes permiso para editar este producto') {
+      return res.status(403).json({ error: error.message });
+    }
+    
     res.status(500).json({ error: "Error al actualizar el producto" });
   }
 });
