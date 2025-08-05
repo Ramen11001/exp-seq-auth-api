@@ -116,7 +116,7 @@ router.put("/:id", validateProductDataUpdate, async (req, res) => {
  */
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedProduct = await productService.deleteProduct(req.params.id);
+    const deletedProduct = await productService.deleteProduct(req.params.id,req.user.id );
     if (!deletedProduct) {
       return res.status(404).json({ error: "Producto no encontrado" });
     }
