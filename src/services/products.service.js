@@ -68,7 +68,7 @@ const updateProduct = async (id, data, userId) => {
  * @param {number} id - The ID of the product to delete.
  * @returns {Promise<object|null>} - A success message or null if the product was not found.
  */
-const deleteProduct = async (id) => {
+const deleteProduct = async (id, userId) => {
   const product = await Product.findByPk(id);
   if (!product) {
     return null;
